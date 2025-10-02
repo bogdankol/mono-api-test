@@ -40,7 +40,7 @@ export default function Home() {
       {invoiceData && <div>
         <p>{invoiceData.invoiceId}</p>
 
-        <a href={invoiceData.pageUrl}>Invoice Link</a>
+        <a href={invoiceData.pageUrl} target='_blank'>Invoice Link</a>
       </div>}
     
     </>
