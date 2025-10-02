@@ -37,10 +37,10 @@ export default function Home() {
         />
       </div>
 
-      {invoiceData && <div className='flex space-x-5 border-4 border-b-blue-950 mt-5'>
-        <p className='text-[18px] text-emerald-900 border-4'>{invoiceData.invoiceId}</p>
+      {invoiceData && <div className='flex space-x-5 border-4 border-b-blue-950 mt-5 p-5'>
+        <p className='text-[18px] text-emerald-900 border-4 border-black'>Invoice Id: {invoiceData.invoiceId}</p>
 
-        <a className='text-[18px] text-emerald-900 border-4' href={invoiceData.pageUrl} target='_blank'>Invoice Link</a>
+        <a className='text-[18px] text-emerald-900 border-4 border-black' href={invoiceData.pageUrl} target='_blank'>Invoice Link</a>
       </div>}
     
     </>
