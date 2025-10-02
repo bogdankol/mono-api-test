@@ -1,6 +1,7 @@
 'use server'
 
 import { envCheck } from '@/lib/server-utils' 
+import { TInvoiceResponse } from '@/lib/types'
 
 const monoKey = process.env.MONO_API_TOKEN_TEST!
 const monoBasicUrl = process.env.MONO_API_BASIC_URL!
@@ -65,8 +66,9 @@ export async function createNewInvoice() {
       })
     })
 
-    const response = await res.json()
+    const response: TInvoiceResponse = await res.json()
     console.log({ response })
+    return response
   } catch(err: unknown) {
     console.error('User creation error:', err instanceof Error ? err.message : err)
     return

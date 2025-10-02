@@ -1,17 +1,16 @@
 import { Button } from '@/components/shadcn/button'
+import { TInvoiceResponse } from '@/lib/types'
 
 type TProps = {
-  props: {
-    onClick: () => Promise<void> 
-  }
+  onClick: () => Promise<void>
   text: string
   className?: string
 }
 
 export default function ButtonCustom({
-  props,
+  onClick,
   text,
   className
 }: TProps) {
-  return <Button {...props} className={className}>{text}</Button>
+  return <Button onClick={onClick} className={className}>{text}</Button>
 }
