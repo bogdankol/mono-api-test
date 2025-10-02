@@ -37,10 +37,10 @@ export default function Home() {
         />
       </div>
 
-      {invoiceData && <div>
-        <p>{invoiceData.invoiceId}</p>
+      {invoiceData && <div className='flex space-x-5 border-4 border-b-blue-950'>
+        <p className='text-[18px] text-emerald-900'>{invoiceData.invoiceId}</p>
 
-        <a href={invoiceData.pageUrl} target='_blank'>Invoice Link</a>
+        <a className='text-[18px] text-emerald-900' href={invoiceData.pageUrl} target='_blank'>Invoice Link</a>
       </div>}
     
     </>
