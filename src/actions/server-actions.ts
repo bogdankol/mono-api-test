@@ -60,8 +60,8 @@ export async function createNewInvoice() {
       },
       body: JSON.stringify({
         amount: 2000,
-        redirectUrl: `/success-page?userId=sdqwdsaffdad&date=${Date.now()}`,
-        webhookUrl: `/api/mono-webhook`
+        redirectUrl: `https://mono-api-test.vercel.app/success-page?userId=sdqwdsaffdad&date=${Date.now()}`,
+        webhookUrl: `https://mono-api-test.vercel.app/api/mono-webhook`
       })
     })
 
