@@ -1,0 +1,11 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function POST(req: NextRequest) {
+  const body = await req.json()
+
+  console.log('I am webhook', { req, body })
+}
+
+export async function GET() {
+  return NextResponse.json({ message: 'webhook is working'})
+}
