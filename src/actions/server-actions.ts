@@ -1,7 +1,7 @@
 'use server'
 
 import { envCheck } from '@/lib/server-utils' 
-import { TInvoiceResponse } from '@/lib/types'
+import { TCheckInvoiceStatus, TPaymentGeneratedLink } from '@/lib/types'
 
 const monoKey = process.env.MONO_API_TOKEN_TEST!
 const monoBasicUrl = process.env.MONO_API_BASIC_URL!
@@ -66,11 +66,28 @@ export async function createNewInvoice() {
       })
     })
 
-    const response: TInvoiceResponse = await res.json()
+    const response: TPaymentGeneratedLink = await res.json()
     console.log({ response })
     return response
   } catch(err: unknown) {
-    console.error('User creation error:', err instanceof Error ? err.message : err)
+    console.error('Invoice creation error:', err instanceof Error ? err.message : err)
+    return
+  }
+}
+
+export async function getStatusOfInvoiceById(id: string) {
+  try {
+    const res = await fetch(monoBasicUrl + `api/merchant/invoice/status?invoiceId=${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': monoKey
+      }
+    })
+    const response: TCheckInvoiceStatus = await res.json()
+    return response
+  } catch(err: unknown) {
+    console.error('Invoice creation error:', err instanceof Error ? err.message : err)
     return
   }
 }
