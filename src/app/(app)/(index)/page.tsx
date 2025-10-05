@@ -18,7 +18,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/shadcn/form'
-import { zodSchema, TZodSchema } from '@/lib/validations'
+import { zodSchema } from '@/lib/validations'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export default function Home() {
@@ -89,7 +89,7 @@ export default function Home() {
 
 			<div className='flex space-x-5 border-4 border-b-blue-950 mt-5 p-5 space-y-5'>
 				<h3>
-					This is Invoice's data that is obtained by pressing *Create new
+					This is Invoice&apos;s data that is obtained by pressing *Create new
 					invoice button*. While not pressed - its empty.
 				</h3>
 				{invoiceData && (
@@ -114,7 +114,7 @@ export default function Home() {
 				<div  className='w-1/2 space-y-4'>
 					<h3>
 						This container will display data obtained by pressing *Check
-						invoice's status* button. While not it is empty.
+						invoice&apos;s status* button. While not it is empty.
 					</h3>
 					<Form {...formHook}>
 						<form onSubmit={formHook.handleSubmit(onSubmitHandler)} className='space-y-4'>

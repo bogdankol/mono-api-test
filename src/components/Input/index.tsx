@@ -1,4 +1,3 @@
-import { Ref, RefObject } from 'react'
 import { Input } from '../shadcn/input'
 
 export default function InputCustom({
