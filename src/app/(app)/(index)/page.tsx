@@ -42,22 +42,29 @@ export default function Home() {
 		}
 	}
 
-	function transformIntoArrayOfCortages<
-		T extends Record<string, string | number | Date>,
-	>(obj: any) {
-		const arr = Object.entries(obj)
-		console.log({ arr })
-	}
-
 	async function onSubmitHandler() {
 		startTransition(async () => {
 			const resultOfValidation = await trigger()
 			if (!resultOfValidation) return
 			const { invoiceId } = getValues()
 
-      const res = await getStatusOfInvoiceById(invoiceId)
-      console.log({res})
+			const res = await getStatusOfInvoiceById(invoiceId)
+			if (!res) throw Error('An error occurred')
+
+			setInvoiceStatus(res)
+			transformIntoArrayOfCortages(res)
 		})
+	}
+
+	function transformIntoArrayOfCortages<T extends Record<string, any>>(obj: T) {
+		const arr = Object.entries(obj)
+
+		const arrWithInnerCortages = arr.map(cortage => {
+			if (typeof cortage[1] !== 'object') return cortage
+			return [cortage[0], Object.entries(cortage[1])]
+		})
+
+		return arrWithInnerCortages
 	}
 
 	return (
@@ -103,14 +110,14 @@ export default function Home() {
 				)}
 			</div>
 
-			<div className='flex space-x-5'>
-				<div>
+			<div className='flex space-x-5 p-5'>
+				<div  className='w-1/2 space-y-4'>
 					<h3>
 						This container will display data obtained by pressing *Check
 						invoice's status* button. While not it is empty.
 					</h3>
 					<Form {...formHook}>
-						<form onSubmit={formHook.handleSubmit(onSubmitHandler)}>
+						<form onSubmit={formHook.handleSubmit(onSubmitHandler)} className='space-y-4'>
 							<FormField
 								{...{
 									render: ({ field }) => (
@@ -132,13 +139,30 @@ export default function Home() {
 							<ButtonCustom
 								text='Check invoice*s status'
 								type='submit'
-                disabled={isPending}
+								disabled={isPending}
 							/>
 						</form>
 					</Form>
 				</div>
-				<div>
-					{invoiceStatus && <>{transformIntoArrayOfCortages(invoiceStatus)}</>}
+				<div className='w-1/2'>
+					{invoiceStatus && (
+						<ul className='border-4 border-blue-800 p-4 w-full'>
+							{transformIntoArrayOfCortages(invoiceStatus).map((cortage, i) => (
+								<li key={i}>
+									{cortage[0]}:{' '}
+									{typeof cortage[1] !== 'object' ? (
+										cortage[1]
+									) : (
+										<ul className='ml-4'>
+											{cortage[1].map(([k, v]: [string, string | number | Date]) => (
+												<li key={k}>{k}: {v instanceof Date ? v.toLocaleString() : v}</li>
+											))}
+										</ul>
+									)}
+								</li>
+							))}
+						</ul>
+					)}
 				</div>
 			</div>
 		</>
