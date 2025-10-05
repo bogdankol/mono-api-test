@@ -1,4 +1,5 @@
 'use server'
+
 export async function envCheck() {
   const monoKeyAvailable = !!process.env.MONO_API_TOKEN_TEST
   const monoBasicUrlAvailable = !!process.env.MONO_API_BASIC_URL

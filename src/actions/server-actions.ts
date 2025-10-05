@@ -75,7 +75,9 @@ export async function createNewInvoice() {
   }
 }
 
-export async function getStatusOfInvoiceById(id: string) {
+export async function getStatusOfInvoiceById(id: string): Promise<TCheckInvoiceStatus | undefined> {
+  await envCheck()
+  
   try {
     const res = await fetch(monoBasicUrl + `api/merchant/invoice/status?invoiceId=${id}`, {
       method: 'GET',
@@ -88,6 +90,6 @@ export async function getStatusOfInvoiceById(id: string) {
     return response
   } catch(err: unknown) {
     console.error('Invoice creation error:', err instanceof Error ? err.message : err)
-    return
+    return 
   }
 }
