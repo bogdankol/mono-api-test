@@ -86,6 +86,7 @@ export async function getStatusOfInvoiceById(id: string): Promise<TCheckInvoiceS
         'X-Token': monoKey
       }
     })
+    console.log({headers: res?.headers})
     const response: TCheckInvoiceStatus = await res.json()
     return response
   } catch(err: unknown) {
